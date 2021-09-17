@@ -1,15 +1,16 @@
 import React from "react";
-import {FlatList, ScrollView, StyleSheet, Text, View} from "react-native";
-import {CARS, COUNTRIES} from "../const";
+import {ScrollView, StyleSheet, Text, View} from "react-native";
+import { COUNTRIES} from "../const";
 
 const ArrayListComponent = () => {
-    return(
 
+    return(
         <View style={styles.container}>
             {/* Title med styling*/ }
             <Text style={{ fontSize: 20, textAlign:'center',paddingTop:40 }}>
                 2 KvartFinale lande - Array Map
             </Text>
+
             <ScrollView style={{height:80}}>
                 {/* Map funktion, som looper igemmen arrayet ( personlig favorit )*/}
                 {

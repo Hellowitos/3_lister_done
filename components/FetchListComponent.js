@@ -1,22 +1,22 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {Image, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View} from "react-native";
 import {COUNTRIES, GET_USERS_URL} from "../const";
 
 const FetchListComponent = () => {
 
-    const [users,setUsers] = React.useState({});
-    const [msg,setMsg] = React.useState("");
-    const [amount,setAmount] = React.useState(2)
+    const [users,setUsers] = useState({});
+    const [msg,setMsg] = useState("");
+    const [amount,setAmount] = useState(2)
 
     /*Henter mine users når componenten loader*/
     useEffect( () => {
         loadUsers();
     },[amount])
 
-    const loadUsers = async () =>{
+    const loadUsers = async () => {
         try {
-            let response = await fetch(GET_USERS_URL+amount);
-            let json = await response.json();
+            const response = await fetch(GET_USERS_URL+amount);
+            const json = await response.json();
             setUsers(json.results);
         } catch (error) {
             setMsg(error)
@@ -24,7 +24,7 @@ const FetchListComponent = () => {
     }
 
     return(
-        users.length > 0 && (
+        users.length > 0 ? (
             <View style={styles.container}>
                 {/* Title med styling*/ }
                 <Text style={{ fontSize: 20, textAlign:'center',paddingTop:40 }}>
@@ -37,20 +37,24 @@ const FetchListComponent = () => {
                     placeholder={`default antal: 1`}
                     keyboardType={"numeric"}
                 />
-                <ScrollView bounces={true} style={{height:250,width:"60%"}}>
-                        {/* Map funktion, som looper igemmen arrayet ( personlig favorit )*/}
+                <ScrollView bounces={true} style={{height:350,width:"60%"}}>
+                        {/* Map funktion, som looper igemmen arrayet */}
                         {
                             users.map((user,index)=>{
                                 return(
-                                    <View key={index}>
+                                    <View key={index} style={{alignItems:"center", padding:10}}>
                                         <Text>Navn: {user.name.first} {user.name.last}</Text>
-                                        <Image source={{uri:user.picture.medium}} style={{width:100,height:100}}/>
+                                        <Image source={{uri:user.picture.medium}} style={{width:50,height:50}}/>
                                     </View>
                                 )
                             })
                         }
                 </ScrollView>
                 <Text>{msg ? msg :""}</Text>
+            </View>
+        ):(
+            <View>
+                <Text style={{textAlign:"center"}}> Loading... </Text>
             </View>
         )
     )

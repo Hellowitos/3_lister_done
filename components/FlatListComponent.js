@@ -4,10 +4,10 @@ import {CARS} from "../const";
 
 const FlatListComponent = () => {
 
-    const CarItem = ({item}) =>{
+    const CarItem = ({item,msg}) => {
         return(
             <Text>
-                Oh boy i love " {item} "
+                {msg} "{item}"
             </Text>
         )
     }
@@ -20,13 +20,14 @@ const FlatListComponent = () => {
             </Text>
             {/* FlatList komponent med title propertien og en værdi HANS*/ }
             <FlatList
-                style={styles.inlineScroll}
+                style={{height:80}}
                 data={CARS}
                 renderItem={({item})=>{
                     {/*Render CarItem, her er det vigtigt at kalde et subkomponent*/}
                     return(
                         <CarItem
                             item={item}
+                            msg={"Oh boy i love"}
                         />
                     )
                 }}
